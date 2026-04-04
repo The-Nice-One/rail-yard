@@ -1,0 +1,42 @@
+{
+  "name": "commark",
+  "version": "0.1.0",
+  "description": "A command-driven markdown preprocessor and static site generator",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "prebuild": "node prebuild.mjs",
+    "build": "tsc",
+    "dev": "tsx watch src/index.ts",
+    "test": "npx tsx tests/parser.test.ts && npx tsx tests/integration.test.ts",
+    "test:parser": "npx tsx tests/parser.test.ts",
+    "test:integration": "npx tsx tests/integration.test.ts"
+  },
+  "bin": {
+    "commark": "./dist/cli/cli.js"
+  },
+  "dependencies": {
+    "chokidar": "^3.6.0",
+    "eta": "^3.4.0",
+    "fs-extra": "^11.2.0",
+    "glob": "^11.0.0",
+    "gray-matter": "^4.0.3",
+    "lightningcss": "^1.28.2",
+    "peggy": "^4.2.0",
+    "picocolors": "^1.1.1",
+    "rehype-raw": "^7.0.0",
+    "rehype-stringify": "^10.0.0",
+    "remark-gfm": "^4.0.0",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.0.0",
+    "unified": "^11.0.5",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}
