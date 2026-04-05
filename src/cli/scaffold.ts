@@ -25,6 +25,7 @@ export async function scaffold(name: string): Promise<void> {
   }
 
   const files: Record<string, string> = {
+    'package.json': packageJson(name),
     'build.ts': buildScript(name),
     'pages/index.md': indexPage(name),
     'pages/about.md': aboutPage(),
@@ -46,13 +47,35 @@ ${pc.green(pc.bold('✓ Done!'))} Your project is ready.
 ${pc.bold('Next steps:')}
 
   ${pc.cyan(`cd ${name}`)}
-  ${pc.cyan('npm install commark')}       (once published)
-  ${pc.cyan('npx tsx build.ts')}          build now
+  ${pc.cyan('npm install')}
+  ${pc.cyan('npx tsx build.ts')}          build once
   ${pc.cyan('commark serve')}             build + watch + live reload
 `)
 }
 
 // ─── File templates ───────────────────────────────────────────────────────────
+
+function packageJson(name: string): string {
+  return JSON.stringify({
+    name,
+    version: '0.1.0',
+    description: '',
+    type: 'module',
+    scripts: {
+      build: 'npx tsx build.ts',
+      serve: 'commark serve',
+      preprocess: 'commark preprocess -i ./docs -o ./wiki',
+    },
+    dependencies: {
+      commark: '*',
+    },
+    devDependencies: {
+      tsx: '^4.19.0',
+      typescript: '^5.6.0',
+      '@types/node': '^22.0.0',
+    },
+  }, null, 2) + '\n'
+}
 
 function buildScript(name: string): string {
   return `import { Site, watch } from 'commark'
@@ -95,6 +118,7 @@ if (isWatch) {
 }
 
 function indexPage(name: string): string {
+  // Single \\ in a template literal writes one \ to disk — correct for commark commands.
   return `---
 title: Home
 layout: default
@@ -102,7 +126,7 @@ layout: default
 
 # Welcome to ${name}
 
-\\\\note{This is a built-in note command. Edit \`pages/index.md\` to get started.}
+\\note{This is a built-in note command. Edit \`pages/index.md\` to get started.}
 
 ## What is commark?
 
@@ -111,11 +135,11 @@ You can define custom commands in your \`build.ts\` and use them anywhere in mar
 
 ## Example commands
 
-\\\\badge{new}{#0070f3}
+\\badge{new}{#0070f3}
 
 ## File inclusion
 
-Use \`\\\\textinput{path/to/file.md}\` to inline another file's content.
+Use \`\\textinput{path/to/file.md}\` to inline another file's content.
 
 ## Learn more
 
@@ -133,7 +157,7 @@ layout: default
 
 This site was built with [commark](https://github.com/nicholasgasior/commark).
 
-\\\\warn{Remember to update this page with your own content!}
+\\warn{Remember to update this page with your own content!}
 `
 }
 
@@ -293,7 +317,7 @@ site.defineCommand('myCmd', (arg1, arg2) => \`**\${arg1}**: \${arg2}\`)
 Then use in any markdown file:
 
 \`\`\`
-\\\\myCmd{label}{content}
+\\myCmd{label}{content}
 \`\`\`
 `
 }
