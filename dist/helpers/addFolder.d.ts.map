@@ -1,0 +1,1 @@
+{"version":3,"file":"addFolder.d.ts","sourceRoot":"","sources":["../../src/helpers/addFolder.ts"],"names":[],"mappings":"AAEA,OAAO,KAAK,EAAE,SAAS,EAAE,WAAW,EAAE,MAAM,aAAa,CAAA;AAEzD,MAAM,WAAW,gBAAiB,SAAQ,WAAW;IACnD;;;OAGG;IACH,OAAO,CAAC,EAAE,MAAM,CAAA;CACjB;AAED;;;;;;;;;GASG;AACH,wBAAgB,UAAU,CAAC,UAAU,EAAE,MAAM,EAAE,OAAO,GAAE,gBAAqB,GAAG,SAAS,EAAE,CAe1F"}
