@@ -29,7 +29,7 @@ export class LayoutRenderer {
   private templates = new Map<string, string>()
 
   constructor(private siteConfig: SiteConfig) {
-    this.eta = new Eta({ autoEscape: true })
+    this.eta = new Eta({ autoEscape: true, views: process.cwd() })
   }
 
   /**

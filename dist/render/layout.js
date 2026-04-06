@@ -28,7 +28,7 @@ export class LayoutRenderer {
     templates = new Map();
     constructor(siteConfig) {
         this.siteConfig = siteConfig;
-        this.eta = new Eta({ autoEscape: true });
+        this.eta = new Eta({ autoEscape: true, views: process.cwd() });
     }
     /**
      * Register a named layout from a file path.
