@@ -1,4 +1,7 @@
-# commark
+# rail-yard
+
+> [!IMPORTANT]
+> This package was created with the help of artificial inteligence (AI) (LLM chatbots).
 
 A command-driven markdown preprocessor and static site generator, inspired by [Franklin.jl](https://franklinjl.org/).
 
@@ -33,7 +36,7 @@ Define custom `\commands{like}{this}` in TypeScript. Use them anywhere in Markdo
 ## Install
 
 ```bash
-npm install commark
+npm install rail-yard
 ```
 
 ---
@@ -42,7 +45,7 @@ npm install commark
 
 ```ts
 // build.ts
-import { Site, watch } from 'commark'
+import { Site, watch } from 'rail-yard'
 
 const isWatch = process.argv.includes('--watch')
 
@@ -87,7 +90,7 @@ Run it:
 ```bash
 npx tsx build.ts          # one-off build
 npx tsx build.ts --watch  # build + watch + live reload
-commark serve             # same, via CLI
+rail-yard serve             # same, via CLI
 ```
 
 ---
@@ -348,22 +351,22 @@ await site.build()
 ## CLI
 
 ```
-commark build [--config path]          Build to HTML
-commark serve [--config path]          Build + watch + dev server
-commark preprocess -i <dir> -o <dir>   Markdown-only preprocessor
-commark new <project-name>             Scaffold a new project
+rail-yard build [--config path]          Build to HTML
+rail-yard serve [--config path]          Build + watch + dev server
+rail-yard preprocess -i <dir> -o <dir>   Markdown-only preprocessor
+rail-yard new <project-name>             Scaffold a new project
 ```
 
-`commark serve` starts a dev server with SSE-based live reload — no configuration needed, just open `http://localhost:3000`.
+`rail-yard serve` starts a dev server with SSE-based live reload — no configuration needed, just open `http://localhost:3000`.
 
-`commark preprocess` is a drop-in replacement for simple regex-based preprocessors. It reads all `.md` files from `<dir>`, expands `\textinput` and any other built-in commands, and writes expanded `.md` files to the output directory.
+`rail-yard preprocess` is a drop-in replacement for simple regex-based preprocessors. It reads all `.md` files from `<dir>`, expands `\textinput` and any other built-in commands, and writes expanded `.md` files to the output directory.
 
 ---
 
 ## Watch mode
 
 ```ts
-import { watch } from 'commark'
+import { watch } from 'rail-yard'
 
 await watch(site, {
   paths:      ['./pages', './layouts', './styles'],
@@ -420,28 +423,13 @@ src/
 ├── cli/
 │   ├── cli.ts             ← CLI entry point
 │   ├── devServer.ts       ← SSE dev server
-│   └── scaffold.ts        ← commark new
+│   └── scaffold.ts        ← rail-yard new
 ├── helpers/
 │   └── addFolder.ts       ← glob-based folder scanner
 ├── types.ts               ← All shared TypeScript types
 └── index.ts               ← Public API exports
 ```
 
----
-
-## Differences from Franklin.jl
-
-| Feature | Franklin.jl | commark |
-|---------|-------------|---------|
-| Command syntax | `\cmd{arg}` | `\cmd{arg}` ✓ |
-| Calls real language functions | ✓ (Julia) | ✓ (TypeScript) |
-| Async command handlers | ✗ | ✓ |
-| Markdown output mode | ✗ | ✓ |
-| Programmatic builder API | ✗ (folder-tree) | ✓ |
-| Maintenance status | Unmaintained | Active |
-
----
-
 ## License
 
-MIT
+APACHE-2.0

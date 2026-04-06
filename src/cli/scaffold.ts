@@ -1,84 +1,86 @@
-import { mkdirSync, writeFileSync } from 'fs'
-import { join } from 'path'
-import pc from 'picocolors'
+import { mkdirSync, writeFileSync } from "fs";
+import { join } from "path";
+import pc from "picocolors";
 
 /**
- * Scaffold a new commark project with a sensible starter structure.
+ * Scaffold a new rail-yard project with a sensible starter structure.
  */
 export async function scaffold(name: string): Promise<void> {
-  const root = join(process.cwd(), name)
+  const root = join(process.cwd(), name);
 
-  console.log(`\n${pc.bold(pc.cyan('◆ commark'))} scaffolding ${pc.bold(name)}\n`)
+  console.log(
+    `\n${pc.bold(pc.cyan("◆ rail-yard"))} scaffolding ${pc.bold(name)}\n`,
+  );
 
-  const dirs = [
-    '',
-    'pages',
-    'layouts',
-    'styles',
-    'public',
-  ]
+  const dirs = ["", "pages", "layouts", "styles", "public"];
 
   for (const dir of dirs) {
-    const full = join(root, dir)
-    mkdirSync(full, { recursive: true })
-    if (dir) console.log(`  ${pc.green('+')} ${name}/${dir}/`)
+    const full = join(root, dir);
+    mkdirSync(full, { recursive: true });
+    if (dir) console.log(`  ${pc.green("+")} ${name}/${dir}/`);
   }
 
   const files: Record<string, string> = {
-    'package.json': packageJson(name),
-    'build.ts': buildScript(name),
-    'pages/index.md': indexPage(name),
-    'pages/about.md': aboutPage(),
-    'layouts/base.eta': baseLayout(name),
-    'styles/main.css': mainCSS(),
-    '.gitignore': gitignore(),
-    'README.md': readme(name),
-  }
+    "package.json": packageJson(name),
+    "build.ts": buildScript(name),
+    "pages/index.md": indexPage(name),
+    "pages/about.md": aboutPage(),
+    "layouts/base.eta": baseLayout(name),
+    "styles/main.css": mainCSS(),
+    ".gitignore": gitignore(),
+    "README.md": readme(name),
+  };
 
   for (const [rel, content] of Object.entries(files)) {
-    const full = join(root, rel)
-    writeFileSync(full, content, 'utf-8')
-    console.log(`  ${pc.green('+')} ${name}/${rel}`)
+    const full = join(root, rel);
+    writeFileSync(full, content, "utf-8");
+    console.log(`  ${pc.green("+")} ${name}/${rel}`);
   }
 
   console.log(`
-${pc.green(pc.bold('✓ Done!'))} Your project is ready.
+${pc.green(pc.bold("✓ Done!"))} Your project is ready.
 
-${pc.bold('Next steps:')}
+${pc.bold("Next steps:")}
 
   ${pc.cyan(`cd ${name}`)}
-  ${pc.cyan('npm install')}
-  ${pc.cyan('npx tsx build.ts')}          build once
-  ${pc.cyan('commark serve')}             build + watch + live reload
-`)
+  ${pc.cyan("npm install")}
+  ${pc.cyan("npx tsx build.ts")}          build once
+  ${pc.cyan("rail-yard serve")}             build + watch + live reload
+`);
 }
 
 // ─── File templates ───────────────────────────────────────────────────────────
 
 function packageJson(name: string): string {
-  return JSON.stringify({
-    name,
-    version: '0.1.0',
-    description: '',
-    type: 'module',
-    scripts: {
-      build: 'npx tsx build.ts',
-      serve: 'commark serve',
-      preprocess: 'commark preprocess -i ./docs -o ./wiki',
-    },
-    dependencies: {
-      commark: '*',
-    },
-    devDependencies: {
-      tsx: '^4.19.0',
-      typescript: '^5.6.0',
-      '@types/node': '^22.0.0',
-    },
-  }, null, 2) + '\n'
+  return (
+    JSON.stringify(
+      {
+        name,
+        version: "0.1.0",
+        description: "",
+        type: "module",
+        scripts: {
+          build: "npx tsx build.ts",
+          serve: "rail-yard serve",
+          preprocess: "rail-yard preprocess -i ./docs -o ./wiki",
+        },
+        dependencies: {
+          "rail-yard": "*",
+        },
+        devDependencies: {
+          tsx: "^4.19.0",
+          typescript: "^5.6.0",
+          "@types/node": "^22.0.0",
+        },
+      },
+      null,
+      2,
+    ) + "\n"
+  );
 }
 
 function buildScript(name: string): string {
-  return `import { Site, watch } from 'commark'
+  return `import { Site, watch } from 'rail-yard'
 import { resolve } from 'path'
 
 const isWatch = process.argv.includes('--watch')
@@ -114,11 +116,11 @@ if (isWatch) {
 } else {
   await site.build()
 }
-`
+`;
 }
 
 function indexPage(name: string): string {
-  // Single \\ in a template literal writes one \ to disk — correct for commark commands.
+  // Single \\ in a template literal writes one \ to disk — correct for rail-yard commands.
   return `---
 title: Home
 layout: default
@@ -128,9 +130,9 @@ layout: default
 
 \\note{This is a built-in note command. Edit \`pages/index.md\` to get started.}
 
-## What is commark?
+## What is rail-yard?
 
-Commark is a command-driven markdown preprocessor and static site generator.
+rail-yard is a command-driven markdown preprocessor and static site generator.
 You can define custom commands in your \`build.ts\` and use them anywhere in markdown.
 
 ## Example commands
@@ -144,7 +146,7 @@ Use \`\\textinput{path/to/file.md}\` to inline another file's content.
 ## Learn more
 
 - [About](/about)
-`
+`;
 }
 
 function aboutPage(): string {
@@ -155,10 +157,10 @@ layout: default
 
 # About
 
-This site was built with [commark](https://github.com/nicholasgasior/commark).
+This site was built with [rail-yard](https://github.com/The-Nice-One/rail-yard).
 
 \\warn{Remember to update this page with your own content!}
-`
+`;
 }
 
 function baseLayout(name: string): string {
@@ -181,11 +183,11 @@ function baseLayout(name: string): string {
     <%~ it.content %>
   </main>
   <footer>
-    <p>Built with commark.</p>
+    <p>Built with rail-yard.</p>
   </footer>
 </body>
 </html>
-`
+`;
 }
 
 function mainCSS(): string {
@@ -281,7 +283,7 @@ footer {
   font-weight: 600;
   color: #fff;
 }
-`
+`;
 }
 
 function gitignore(): string {
@@ -290,20 +292,20 @@ dist/
 dist-wiki/
 .DS_Store
 *.js.map
-`
+`;
 }
 
 function readme(name: string): string {
   return `# ${name}
 
-Built with [commark](https://github.com/nicholasgasior/commark).
+Built with [rail-yard](https://github.com/The-Nice-One/rail-yard).
 
 ## Development
 
 \`\`\`bash
 npx tsx build.ts          # one-off build
-commark serve             # build + watch + live reload
-commark preprocess -i ./docs -o ./wiki   # markdown passthrough mode
+rail-yard serve             # build + watch + live reload
+rail-yard preprocess -i ./docs -o ./wiki   # markdown passthrough mode
 \`\`\`
 
 ## Custom commands
@@ -319,5 +321,5 @@ Then use in any markdown file:
 \`\`\`
 \\myCmd{label}{content}
 \`\`\`
-`
+`;
 }

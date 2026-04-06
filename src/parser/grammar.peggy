@@ -1,5 +1,5 @@
 /*
- * Commark Command Grammar (Peggy)
+ * rail-yard Command Grammar (Peggy)
  *
  * Key fix: two separate "char" rules.
  *   - TopChar  -> matches ANY character (including { and }) at document level

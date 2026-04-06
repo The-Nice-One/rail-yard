@@ -1,5 +1,5 @@
 {
-  "name": "commark",
+  "name": "rail-yard",
   "version": "0.1.0",
   "description": "A command-driven markdown preprocessor and static site generator",
   "type": "module",
@@ -14,7 +14,7 @@
     "test:integration": "npx tsx tests/integration.test.ts"
   },
   "bin": {
-    "commark": "./dist/cli/cli.js"
+    "rail-yard": "./dist/cli/cli.js"
   },
   "dependencies": {
     "chokidar": "^3.6.0",
