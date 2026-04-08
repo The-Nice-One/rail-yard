@@ -33,7 +33,13 @@ Define custom `\commands{like}{this}` in TypeScript. Use them anywhere in Markdo
 
 ---
 
-## Install
+## Install & Use CLI
+
+```bash
+npx https://github.com/The-Nice-One/rail-yard.git
+```
+
+## Install Package
 
 ```bash
 npm install https://github.com/The-Nice-One/rail-yard.git
