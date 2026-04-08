@@ -53,7 +53,7 @@ function packageJson(name) {
             preprocess: "rail-yard preprocess -i ./docs -o ./wiki",
         },
         dependencies: {
-            "rail-yard": "*",
+            "rail-yard": "github:The-Nice-One/rail-yard",
         },
         devDependencies: {
             tsx: "^4.19.0",
